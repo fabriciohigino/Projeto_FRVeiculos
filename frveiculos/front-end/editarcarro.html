@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Carro</title>
+    <link rel="stylesheet" href="./CSS/editarusuario.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Carro</h1>
+        <form id="editCarForm">
+            <input type="hidden" id="carId" />
+            <label for="carModel">Modelo:</label>
+            <input type="text" id="carNome" required />
+            <label for="carBrand">Marca:</label>
+            <input type="text" id="carBrand" required />
+
+            <label for="carAno">Ano:</label>
+            <input type="number" id="carAno" required />
+
+            <label for="carPlaca">Placa:</label>
+            <input type="text" id="carPlaca" required />
+
+            <label for="carPreco">Preço:</label>
+            <input type="text" id="carPreco" required />
+
+            <button type="submit">Salvar</button>
+            <button type="button" id="cancelBtn">Cancelar</button>
+        </form>
+    </div>
+    <script src="./JS/editarcarro.js"></script>
+</body>
+</html>
