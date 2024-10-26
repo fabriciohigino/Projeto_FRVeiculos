@@ -1,0 +1,4 @@
+Relacionamentos
+
+   1. Usuário - Carro: Um usuário pode cadastrar vários carros, mas cada carro pertence a um único usuário.
+   2. Relatórios: Apenas administradores geram relatórios, e eles são associados a quem fez a solicitação.
