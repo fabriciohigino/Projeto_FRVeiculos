@@ -1,13 +1,13 @@
 package com.frveiculos.frveiculos.Controller;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Map;
-//import java.util.Optional;
-//import org.hibernate.mapping.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.frveiculos.frveiculos.Service.UsuarioService;
 import com.frveiculos.frveiculos.model.Usuario;
 import com.frveiculos.frveiculos.repository.UsuarioRepository;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RestController
 @RequestMapping("/usuarios")

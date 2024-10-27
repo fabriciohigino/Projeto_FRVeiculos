@@ -46,7 +46,29 @@ document.addEventListener("DOMContentLoaded", async () => {
 function editUser(id) {
     window.location.href = `editarusuario.html?id=${id}`;
 }
-
+/*
 function deleteUser(id) {
     alert(`Função de exclusão para o usuário ${id} (a implementar)`);
+}
+*/
+async function deleteUser(id) {
+    const confirmDelete = confirm(`Tem certeza que deseja excluir o usuário com ID ${id}?`);
+    if (!confirmDelete) return;
+
+    try {
+        const response = await fetch(`http://localhost:8080/usuarios/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            alert('Usuário excluído com sucesso!');
+            // Remove a linha da tabela após a exclusão
+            document.querySelector(`#user-${id}`).remove();
+        } else {
+            alert('Erro ao excluir usuário.');
+        }
+    } catch (error) {
+        console.error('Erro ao excluir usuário:', error);
+    }
+    window.location.reload();
 }

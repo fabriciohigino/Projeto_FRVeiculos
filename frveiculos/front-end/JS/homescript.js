@@ -21,9 +21,9 @@ document.getElementById('listCarsBtn').addEventListener('click', () => {
 });
 
 document.getElementById('addUserBtn').addEventListener('click', () => {
-    alert("Adicionar Usuário! (a implementar)");
+    window.location.href = 'cadastra.html';
 });
 
 document.getElementById('addCarBtn').addEventListener('click', () => {
-    alert("Adicionar Carro! (a implementar)");
+    window.location.href = 'cadastrarVeiculo.html';
 });
