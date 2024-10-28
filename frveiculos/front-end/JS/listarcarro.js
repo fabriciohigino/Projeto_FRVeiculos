@@ -42,6 +42,24 @@ function editCar(id) {
     window.location.href = `editarcarro.html?id=${id}`;
 }
 
-function deleteCar(id) {
-    alert(`Função de exclusão para o carro ${id} (a implementar)`);
+async function deleteCar(id) {
+    const confirmDelete = confirm(`Tem certeza que deseja excluir o carro com ID ${id}?`);
+    if (!confirmDelete) return;
+
+    try {
+        const response = await fetch(`http://localhost:8080/veiculos/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            alert('Carro excluído com sucesso!');
+            // Remove a linha da tabela após a exclusão
+            document.querySelector(`#car-${id}`).remove();
+        } else {
+            alert('Erro ao excluir carro.');
+        }
+    } catch (error) {
+        console.error('Erro ao excluir carro:', error);
+    }
+    window.location.reload();
 }

@@ -1,13 +1,14 @@
 package com.frveiculos.frveiculos.Controller;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 import java.util.Map;
-//import java.util.Optional;
-//import org.hibernate.mapping.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.frveiculos.frveiculos.Service.UsuarioService;
 import com.frveiculos.frveiculos.model.Usuario;
 import com.frveiculos.frveiculos.repository.UsuarioRepository;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -90,15 +89,23 @@ private PasswordEncoder passwordEncoder; // Injetando o PasswordEncoder
 public ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
     String email = loginRequest.get("email");
     String senha = loginRequest.get("senha");
+    String tipo = loginRequest.get("tipo");
 
     Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
 
     if (usuario.isPresent() && 
-        passwordEncoder.matches(senha, usuario.get().getSenha())) {
-        return ResponseEntity.ok().build();  // Login bem-sucedido
-    }
+    passwordEncoder.matches(senha, usuario.get().getSenha()) && 
+    usuario.get().getTipo().name().equalsIgnoreCase(tipo)) {
+    
+    // Retorna as informações do usuário, incluindo o tipo
+    Map<String, String> userInfo = new HashMap<>();
+    userInfo.put("email", usuario.get().getEmail());
+    userInfo.put("tipo", usuario.get().getTipo().name());
 
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas.");
+    return ResponseEntity.ok(userInfo);
 }
 
+return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas ou tipo incorreto.");
 }
+
+};
