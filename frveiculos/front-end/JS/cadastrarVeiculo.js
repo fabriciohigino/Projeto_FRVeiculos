@@ -30,3 +30,7 @@ document.getElementById("userForm").addEventListener("submit", async (event) => 
         document.getElementById("userMessage").innerText = "Erro ao cadastrar veiculo.";
     }
 });
+
+btnVoltarHome.addEventListener('click', () => {
+    window.location.href = 'home.html';
+});
