@@ -6,6 +6,7 @@ loginForm.addEventListener('submit', async (event) => {
 
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
+    const tipo = document.getElementById("tipo").value; 
 
     try {
         const response = await fetch('http://localhost:8080/usuarios/login', {
@@ -13,11 +14,19 @@ loginForm.addEventListener('submit', async (event) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, senha }),
+            body: JSON.stringify({ email, senha, tipo }),
         });
 
         if (response.ok) {
-            window.location.href = 'home.html';
+            // Decodifica a resposta para obter os dados do usuário
+            const userData = await response.json();
+
+            // Redireciona com base no tipo do usuário
+            if (userData.tipo === 'COMUM') {
+                window.location.href = 'homeComum.html';
+            } else if (userData.tipo === 'ADMIN') {
+                window.location.href = 'home.html';
+            }
         } else {
             const errorData = await response.text();
             errorMessage.textContent = `Erro: ${errorData}`;

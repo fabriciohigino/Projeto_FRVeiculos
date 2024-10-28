@@ -12,6 +12,10 @@
         <form id="loginForm">
             <input type="email" id="email" placeholder="Digite seu e-mail" required />
             <input type="password" id="senha" placeholder="Digite sua senha" required />
+            <select id="tipo" name="tipo" required>
+                <option value="COMUM">Comum</option>
+                <option value="ADMIN">Admin</option>
+            </select>
             <button type="submit">Entrar</button>
             <div id="errorMessage" class="error-message"></div>
         </form>

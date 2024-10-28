@@ -22,11 +22,11 @@ document.getElementById("userForm").addEventListener("submit", async (event) => 
             throw new Error(`Erro ${response.status}: ${errorData.message || 'Erro desconhecido'}`);
         }
 
-        const message = "Usuário cadastrado com sucesso!";
+        const message = "Veiculo cadastrado com sucesso!";
         document.getElementById("userMessage").innerText = message;
         document.getElementById("userForm").reset();
     } catch (error) {
         console.error('Erro:', error);
-        document.getElementById("userMessage").innerText = "Erro ao cadastrar usuário.";
+        document.getElementById("userMessage").innerText = "Erro ao cadastrar veiculo.";
     }
 });

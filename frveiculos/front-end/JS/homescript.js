@@ -1,11 +1,3 @@
-// Simulando dados do usuário (substitua por dados reais se necessário)
-const user = {
-    name: "Nome do Usuário", // Obtenha o nome real do usuário após login
-};
-
-// Exibir o nome do usuário
-document.getElementById('userName').textContent = user.name;
-
 // Logout
 document.getElementById('logoutBtn').addEventListener('click', () => {
     window.location.href = 'telalogin.html';

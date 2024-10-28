@@ -1,5 +1,6 @@
 package com.frveiculos.frveiculos.Controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -88,15 +89,23 @@ private PasswordEncoder passwordEncoder; // Injetando o PasswordEncoder
 public ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
     String email = loginRequest.get("email");
     String senha = loginRequest.get("senha");
+    String tipo = loginRequest.get("tipo");
 
     Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
 
     if (usuario.isPresent() && 
-        passwordEncoder.matches(senha, usuario.get().getSenha())) {
-        return ResponseEntity.ok().build();  // Login bem-sucedido
-    }
+    passwordEncoder.matches(senha, usuario.get().getSenha()) && 
+    usuario.get().getTipo().name().equalsIgnoreCase(tipo)) {
+    
+    // Retorna as informações do usuário, incluindo o tipo
+    Map<String, String> userInfo = new HashMap<>();
+    userInfo.put("email", usuario.get().getEmail());
+    userInfo.put("tipo", usuario.get().getTipo().name());
 
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas.");
+    return ResponseEntity.ok(userInfo);
 }
 
+return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas ou tipo incorreto.");
 }
+
+};
