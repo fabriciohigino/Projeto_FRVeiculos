@@ -21,6 +21,9 @@ loginForm.addEventListener('submit', async (event) => {
             // Decodifica a resposta para obter os dados do usuário
             const userData = await response.json();
 
+            // Armazena as informações do usuário no LocalStorage
+            localStorage.setItem('usuarioLogado', JSON.stringify(userData));
+            
             // Redireciona com base no tipo do usuário
             if (userData.tipo === 'COMUM') {
                 window.location.href = 'homeComum.html';

@@ -39,3 +39,16 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+.button-link {
+    display: block;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.button-link:hover {
+    background-color: #0056b3;
+}
