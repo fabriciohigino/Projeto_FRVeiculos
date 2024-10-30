@@ -1,25 +1,54 @@
-// Função para exibir os dados do usuário logado
 document.addEventListener('DOMContentLoaded', () => {
     const dadosUsuario = document.getElementById('dadosUsuario');
+    const qrcodeDiv = document.getElementById('qrcode');
     const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
 
     if (usuarioLogado) {
+        // Exibe as informações e adiciona os botões sem substituir o conteúdo existente
         dadosUsuario.innerHTML = `
-            <p><strong>Id:</strong> ${usuarioLogado.id}</p>
+            <p><strong>ID:</strong> ${usuarioLogado.id}</p>
             <p><strong>Nome:</strong> ${usuarioLogado.nome}</p>
             <p><strong>Email:</strong> ${usuarioLogado.email}</p>
             <p><strong>Cidade:</strong> ${usuarioLogado.cidade}</p>
             <p><strong>Tipo:</strong> ${usuarioLogado.tipo}</p>
+        `;
+
+        // Adiciona botões de forma separada
+        const botoes = `
             <button id="editarUsuario">Editar Usuário</button>
             <button id="excluirUsuario">Excluir Usuário</button>
             <button id="alterarSenha">Alterar Senha</button>
         `;
+        dadosUsuario.insertAdjacentHTML('beforeend', botoes);
+
+        // Gera o QR Code automaticamente
+        const textoQRCode = `
+            ID: ${usuarioLogado.id}
+            Nome: ${usuarioLogado.nome}
+            Email: ${usuarioLogado.email}
+            Cidade: ${usuarioLogado.cidade}
+            Tipo: ${usuarioLogado.tipo}
+        `;
+
+        qrcodeDiv.innerHTML = ""; // Limpa QR Code antigo, se houver
+        new QRCode(qrcodeDiv, {
+            text: textoQRCode,
+            width: 200,
+            height: 200,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+        });
+
+        // Funções dos botões
+        document.getElementById('editarUsuario').addEventListener('click', editarUsuario);
+        document.getElementById('excluirUsuario').addEventListener('click', excluirUsuario);
+        document.getElementById('alterarSenha').addEventListener('click', alterarSenha);
     } else {
         dadosUsuario.textContent = 'Nenhum usuário logado.';
     }
 
-    // Editar Usuário
-    document.getElementById('editarUsuario').addEventListener('click', () => {
+    // Funções auxiliares para os botões
+    function editarUsuario() {
         const novoNome = prompt("Digite o novo nome:", usuarioLogado.nome);
         const novaCidade = prompt("Digite a nova cidade:", usuarioLogado.cidade);
         const novoEmail = prompt("Digite o novo email:", usuarioLogado.email);
@@ -49,10 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .catch(error => console.error('Erro na requisição:', error));
         }
-    });
+    }
 
-    // Excluir Usuário
-    document.getElementById('excluirUsuario').addEventListener('click', () => {
+    function excluirUsuario() {
         if (confirm("Tem certeza que deseja excluir seu usuário? Esta ação não pode ser desfeita.")) {
             fetch(`http://localhost:8080/usuarios/${usuarioLogado.id}`, { method: 'DELETE' })
                 .then(response => {
@@ -66,10 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .catch(error => console.error('Erro na requisição:', error));
         }
-    });
+    }
 
-    // Alterar Senha
-    document.getElementById('alterarSenha').addEventListener('click', () => {
+    function alterarSenha() {
         const novaSenha = prompt("Digite a nova senha:");
         if (novaSenha) {
             fetch(`http://localhost:8080/usuarios/${usuarioLogado.id}/alterar-senha?novaSenha=${encodeURIComponent(novaSenha)}`, {
@@ -84,5 +111,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .catch(error => console.error('Erro na requisição:', error));
         }
-    });
+    }
 });
