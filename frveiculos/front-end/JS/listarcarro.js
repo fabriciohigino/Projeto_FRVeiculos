@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
-// formatar o preço como "R$"
+// formatar o preço "R$"
 function formatCurrency(value) {
     return new Intl.NumberFormat('pt-BR', {
         style: 'currency',
@@ -63,3 +63,40 @@ async function deleteCar(id) {
     }
     window.location.reload();
 }
+
+
+// Função para buscar um veículo por ID
+document.getElementById('buscarVeiculo').addEventListener('click', async () => {
+    const veiculoId = document.getElementById('veiculoId').value;
+    const resultadoBusca = document.getElementById('resultadoBusca');
+
+    if (!veiculoId) {
+        alert("Por favor, digite um ID.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:8080/veiculos/${veiculoId}`);
+
+        if (response.ok) {
+            const veiculo = await response.json();
+            resultadoBusca.innerHTML = `
+                <h3>Veículo Encontrado:</h3>
+                <p><strong>ID:</strong> ${veiculo.id}</p>
+                <p><strong>Nome:</strong> ${veiculo.nome}</p>
+                <p><strong>Marca:</strong> ${veiculo.marca}</p>
+                <p><strong>Ano:</strong> ${veiculo.ano}</p>
+                <p><strong>Placa:</strong> ${veiculo.placa}</p>
+                <p><strong>Preço:</strong> R$${veiculo.preco}</p>
+                <p><strong>Cidade:</strong> ${veiculo.cidade}</p>
+            `;
+        } else if (response.status === 404) {
+            resultadoBusca.innerHTML = `<p>Veículo não encontrado.</p>`;
+        } else {
+            throw new Error("Erro ao buscar o veículo.");
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        resultadoBusca.innerHTML = `<p>Ocorreu um erro ao buscar o veículo.</p>`;
+    }
+});
