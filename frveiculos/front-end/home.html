@@ -16,10 +16,16 @@
             <button id="addUserBtn">Adicionar Usuário</button>
             <button id="addCarBtn">Adicionar Carro</button>
             <button id="downloadRelatorio">Baixar Relatório de Carros</button>
+            <main>
+                <input type="text" id="veiculoId" placeholder="Digite o ID do Veículo">
+                <button id="gerarQRCode">Gerar QR Code</button>
+                <div id="qrcode"></div>
+            </main>
             <button id="logoutBtn">Sair</button>
 
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="./JS/homescript.js"></script>
 </body>
 </html>
