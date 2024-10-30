@@ -98,14 +98,18 @@ public ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
     usuario.get().getTipo().name().equalsIgnoreCase(tipo)) {
     
     // Retorna as informações do usuário, incluindo o tipo
-    Map<String, String> userInfo = new HashMap<>();
+    Map<String, Object> userInfo = new HashMap<>();
     userInfo.put("email", usuario.get().getEmail());
-    userInfo.put("tipo", usuario.get().getTipo().name());
-
+    userInfo.put("tipo", usuario.get().getTipo().name());;
+    userInfo.put("nome", usuario.get().getNome());
+    userInfo.put("cidade", usuario.get().getCidade());
+    userInfo.put("id", usuario.get().getId());
+    
     return ResponseEntity.ok(userInfo);
 }
-
 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas ou tipo incorreto.");
 }
 
+
 };
+

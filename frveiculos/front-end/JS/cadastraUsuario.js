@@ -28,3 +28,7 @@ document.getElementById("userForm").addEventListener("submit", async (event) => 
         document.getElementById("userMessage").innerText = "Erro ao cadastrar usuário.";
     }
 });
+
+btnVoltarHome.addEventListener('click', () => {
+    window.location.href = 'home.html'; // Altere se quiser redirecionar para uma tela específica
+});
