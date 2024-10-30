@@ -83,7 +83,7 @@ document.getElementById('buscarVeiculo').addEventListener('click', async () => {
             resultadoBusca.innerHTML = `
                 <h3>Veículo Encontrado:</h3>
                 <p><strong>ID:</strong> ${veiculo.id}</p>
-                <p><strong>Nome:</strong> ${veiculo.nome}</p>
+                <p><strong>Modelo:</strong> ${veiculo.nome}</p>
                 <p><strong>Marca:</strong> ${veiculo.marca}</p>
                 <p><strong>Ano:</strong> ${veiculo.ano}</p>
                 <p><strong>Placa:</strong> ${veiculo.placa}</p>
