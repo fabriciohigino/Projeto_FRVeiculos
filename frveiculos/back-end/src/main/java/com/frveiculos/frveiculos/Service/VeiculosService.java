@@ -1,15 +1,11 @@
 package com.frveiculos.frveiculos.Service;
 
-
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.frveiculos.frveiculos.model.Veiculos;
 import com.frveiculos.frveiculos.repository.VeiculosRepository;
-
 @Service
 public class VeiculosService {
 
@@ -51,8 +47,9 @@ public class VeiculosService {
         veiculosRepository.deleteById(id);
     }
 
+    /* 
     // Listar carros por cidade
     public List<Veiculos> listarVeiculosPorCidade(String cidade) {
         return veiculosRepository.findByCidade(cidade);
-    }
+    }*/
 }
