@@ -110,4 +110,6 @@ public ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas ou tipo incorreto.");
 }
 
+
 };
+
